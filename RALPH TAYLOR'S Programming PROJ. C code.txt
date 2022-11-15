@@ -1,0 +1,386 @@
+//DONE BY THE WONDERFUL:
+//Name: RALPH TAYLOR
+//ID: 1803071
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <string.h>
+
+main()
+
+{
+    char password[20];
+    char book[10][40]={""};
+    char condition[10][20]={""};
+    char updater[5];
+    char username[20];
+    float purchase[10],totalpurchase,rentalmoves,totalmoves;
+    int count,exitstrategy,i,get,choice,passnum=1,isbn[10],isbnfind=0,u=0,isbn21,booknum, isbnsearch, flag = 0;
+
+    /*This for loop is there to initialize all the array purchase and isbn to 0.*/
+    for (count=0;count<10;count++)
+    {
+        purchase[count]=0;
+        isbn[count]=0;
+    }
+
+  count=0;
+  i=0;
+  totalpurchase=0;
+  booknum=0;
+
+
+    printf("Please enter a username(MAXIMUM OF 15 CHARACTERS PLEASE): ");
+    gets(username);
+
+    system ("cls");
+    printf("There are ONLY THREE CHANCES TO ENTER THE PASSWORD CORRECTLY.\n\n");
+    printf("The password for the system is 'FENCSRULES'. Please enter it as seen here.\n");
+    /*This line of code in the program is given to tell the user
+    what the password for the system is.
+    */
+    printf("\nATTEMPT NUMBER %d", passnum);
+    printf("\nPlease enter the password: ");
+    scanf("%s", password);
+
+      while (strcmp(password,"FENCSRULES")!=0&&passnum<=3)
+           {
+      /*  The passnum variable is placed at the top because
+       there was an attempt made before the while statement and that is one
+       already attempted. Thus it is placed at the top so
+       that it progresses to the second attempt made.*/
+
+    passnum=passnum+1;
+
+    if (passnum==4)
+        {
+        printf("\n%s, TOO MANY ATTEMPS HAVE BEEN MADE FOR THE PASSWORD!!!!!",username);
+        printf("\nYou are hereby locked out of this session!!!!!");
+        getch();
+        return 0;
+
+        /*At this phase, the statements above will be shown once the password
+          attempts have been finished. At this point the program will be finished
+          as the user is locked out due to too many attempts made. */
+
+        }
+    fflush(stdin);
+    printf("\n%s, YOU ENTERED THE INCORRECT PASSWORD !!!!!", username);
+    printf("\n\nATTEMPT NUMBER %d", passnum);
+    printf("\nPlease enter the password: ");
+    scanf("%s", password);
+
+/*passnum is used to output the number of attempts made in
+      the password in the printf statement, and also it is used
+      to keep track of all of the amount of times an attempt was made
+      to input the given password.
+*/
+
+  }
+
+
+
+   while (strcmp(password,"FENCSRULES")==0)
+
+  {
+      system("cls");
+      printf("^                                         %s Welcome_to_the_System :)                                          ^",username);
+      getch();
+//The statements above is presented to really provide a user friendly experience by outputting the username the user entered.
+
+      system("cls");
+      /*This phase the drop down menu will be made to appear THANK GOD*/
+      printf("\n                                                  The FENC Student's Union ");
+      printf("\n                                                       TEXTBOOK RENTAL SYSTEM");
+      printf("\n\n                                                  ^MENU             KEYWORDS^");
+      printf("\n\n                                          ---------------------------------------");
+      printf("\n\n                                          |^ Add A Book       1_(add)            ^|");
+      printf("\n\n                                          |^ Update A Book     2_(update)        ^|");
+      printf("\n\n                                          |^ Display Tools      3_(display)      ^|");
+      printf("\n\n                                          |^ Exit                4_(exit)        ^|");
+      printf("\n\n                                          ---------------------------------------");
+      printf("\n\n                                           Please enter the number of your choice: ");
+      scanf("%d",&choice);
+
+
+        while (choice==1||choice==2||choice==3||choice==4)
+        {
+
+     switch(choice)
+{
+
+
+
+    case 1:
+                  {
+                     while (choice==1&&count<10)
+       {
+
+           printf("%s, This is the add a book section.",username);
+           printf("\n\nIn this section you can enter up to (10) ten books");
+           system("cls");
+
+           if (count==9)
+            printf("This is your final entry");
+            //This if statement will print to the user that it is their final entry so that the user is aware.
+       printf("BOOK ENTRY SECTION\n");
+       printf("Please enter the books ISBN#: ");
+       scanf("%d",&isbn[count]);
+       fflush(stdin);
+       printf("\nPlease enter the title of the book: ");
+       gets(book[count]);
+
+       booknum=booknum+1;
+       //This value is introduced to count the amount of books entered into the system.
+       printf("\nEXCELLENT \nGOOD \nFAIR");
+       do {
+        printf("\n\nPlease enter the book's condition based off of the words above(in common letters): ");
+       scanf("%s",condition[count]);
+       fflush(stdin);
+          } while ((strcmp(condition[count],"excellent")!=0)&&(strcmp(condition[count],"good")!=0)&&(strcmp(condition[count],"fair")!=0));
+
+       do {
+        printf("\nTHE STUDENT'S UNION WILL NOT ACCEPT BOOKS THAT ARE OVER $3000 IN PURCHASE VALUE");
+        printf("\n\nPlease enter a the book's purchase value: ");
+        scanf("%f",&purchase[count]);
+        } while (purchase[count]>3000);
+
+
+        //The post tests presented above are there to validate the entries that the user would input.
+        //If the right value is entered based on the condition of the loop then the user may continue
+        //to use the programme else it will continue to loop until the right value is entered.
+        system("cls");
+
+        totalpurchase=totalpurchase+purchase[count];
+//The if statements presented below are there to calculate the rentalfee that will be displayed to the user throughout the program.
+        if (strcmp(condition,"excellent")==0)
+        rentalmoves=purchase[count]*0.20;
+            else
+            if (strcmp(condition,"good")==0)
+        rentalmoves=purchase[count]*0.15;
+        else
+            if (strcmp(condition,"fair")==0)
+        rentalmoves=purchase[count]*0.08;
+
+        totalmoves=totalmoves+rentalmoves;
+
+        printf("The accumulated rental fee is: %.2f", totalmoves);
+
+        count=count+1;
+        i=i+1;
+
+      /*This phase the drop down menu will be made to appear THANK GOD,because
+       it is required by the instructions given to redisplay each time a menu
+        option is chosen exept from when exit is selected.*/
+      fflush(stdin);
+
+      printf("\n The FENC Student's Union ");
+      printf("\n       TEXTBOOK RENTAL SYSTEM");
+      printf("\n\n^MENU             KEYWORDS^");
+      printf("\n\n---------------------------------------");
+      printf("\n\n ^ Add A Book       1_(add)            |");
+      printf("\n\n ^ Update A Book     2_(update)        |");
+      printf("\n\n ^ Display Tools      3_(display)      |");
+      printf("\n\n ^ Exit                4_(exit)        |");
+      printf("\n\n---------------------------------------");
+      printf("\n\nPlease enter the number of your choice: ");
+      scanf("%d",&choice);
+      system("cls");
+
+
+        }
+       break;
+    }
+
+      case 2:
+    {
+                    while (choice==2)
+                    {
+            system("cls");
+
+            for (count=0;count<10;count++)
+            {//This for statement is there to present to the user all the entries that was made to help the user in entering the isbn#.
+                if (isbn[count]!=0)
+                {
+                    u=u+1;
+                    printf("Your isbn#: \n");
+                    printf("%d: %d\n",u,isbn[count]);
+getch();
+                }
+
+            }
+            fflush(stdin);
+            printf("\nPlease enter your isbn number of the record you wish to update: ");
+            scanf("%d",&isbn21);
+
+            for (count=0;count<10;count++)
+            {//This for statement tests if the user entered a corresponding isbn number form what was prevoiusly entered.
+                if (isbn21==isbn[count])
+                {
+                    printf("\n\nBook Found");
+                    flag=1;//
+
+                    printf("\n\nWhat do you want to update?");
+                    printf("\n\nIf you want to update:\nThe purchase value, enter  P,\nCondition, enter    C, \nBook title, enter  B \nIN COMMON LETTERS.");
+                    printf("\n\nPlease enter the corresponding letter of want you want to update now: ");
+                    fflush(stdin);
+                    scanf("%s",updater);
+                    if (strcmp(updater,"p")==0)
+                    {//IF THE USER enters p, then the user has the chance to change the value of the purchase amount.
+                        // The post test presented below is their for the sole purpose of validating the entry from the user.
+                        do
+                        {
+                            printf("\nPlease enter the new purchase value/amount: ");
+                            scanf("%f",&purchase[count]);
+                        } while(purchase[count]>3000);
+                    }
+                    else
+                    if(strcmp(updater,"c")==0)
+                    {// IF c is entered the user has the opportunity to change the value previously entered for the books condition.
+                        //The post test presented below is premeired to validate the entry from the user.
+                        do
+                        {
+                            printf("\nExcellent\nGood\nFair");
+                            printf("\n\nPlease enter the book's condition based off of the words above(in common letters): ");
+                            fflush(stdin);
+                            scanf("%s",condition[count]);
+
+                        } while ((strcmp(condition[count],"excellent")!=0)&&(strcmp(condition[count],"good")!=0)&&(strcmp(condition[count],"fair")!=0));
+                    }
+                    else
+                    if (strcmp(updater,"b")==0)
+                    {//This IF statement is here for the chance of the user entering the letter b.
+                        // IF b is entered the user has the opportunity to edit the previous entery produced. i.e. change it fully.
+                        printf("\nPlease enter the updated title for the textbook: ");
+                        fflush(stdin);
+                        gets(book[count]);
+                    }
+                    else
+                    {
+                        printf("\nInvalid Option");
+                        getch();
+                    }
+
+            if (flag == 0)
+            {
+                printf("\nBook Not Found");
+                getch();
+            }
+
+
+      /*This phase the drop down menu will be made to appear THANK GOD,because
+       it is required by the instructions given to redisplay each time a menu
+        option is chosen exept from when exit is selected.*/
+        fflush(stdin);
+        system("cls");
+        printf("\n The FENC Student's Union ");
+        printf("\n       TEXTBOOK RENTAL SYSTEM");
+        printf("\n\n^MENU             KEYWORDS^");
+        printf("\n\n---------------------------------------");
+        printf("\n\n ^ Add A Book       1_(add)            |");
+        printf("\n\n ^ Update A Book     2_(update)        |");
+        printf("\n\n ^ Display Tools      3_(display)      |");
+        printf("\n\n ^ Exit                4_(exit)        |");
+        printf("\n\n---------------------------------------");
+        printf("\n\nPlease enter the number of your choice: ");
+        scanf("%d",&choice);
+        system("cls");
+                }
+            }
+
+                    exitstrategy=0;
+                    if (flag == 0&&exitstrategy<1)
+            {
+                //If no records with a specified isbn# is produced then this error message will be prompt to the scree..
+                printf("\nBook Not Found");
+                getch();
+                exitstrategy=exitstrategy+1;
+            }
+
+
+getch();
+       }
+         break;
+    }
+
+
+
+          case 3:
+           {
+
+           fflush(stdin);
+           system("cls");
+           printf("RECORDS:\nNumber of books logged :  %d",booknum);
+           printf("\nThe total purchase amount is   :  %.2f",totalpurchase);
+           printf("\nThe total rental fees are      :  %.2f", totalmoves);
+
+           getch();
+/*
+          if (i>9)
+           {
+               system("cls");
+               printf("A number of records were entered.\nPlease enter the placement number at which the record was entered\n (Whether 1,2,3,4,5,6,7,8,9,10): ");
+               scanf("%d",&isbnfind);
+               isbnfind=isbnfind-1;
+               printf("The record is: \n\nisbn#: %d\npurchase amount: %f,\ncondition of the textbook: %s\n\n",isbn[isbnfind],purchase[isbnfind],condition[isbnfind]);
+                    getch();
+           }
+*/
+           for (i=0;i<10;i++)
+           {
+               //This for statement is there to print out all the records that have a value.
+               if (isbn[i] != 0)
+                  {
+                     printf("\n\n^^ISBN#: %d, Textbook title: %s,   Purchase amount: %.2f,   Condition of book: %s",isbn[i],book[i],purchase[i],condition[i]);
+                        getch();
+
+                  }
+           }
+
+           //fflush(stdin);
+           system("cls");
+      /*This phase the drop down menu will be made to appear THANK GOD*/
+      printf("\n The FENC Student's Union ");
+      printf("\n       TEXTBOOK RENTAL SYSTEM");
+      printf("\n\n^MENU             KEYWORDS^");
+      printf("\n\n---------------------------------------");
+      printf("\n\n ^ Add A Book       1_(add)            |");
+      printf("\n\n ^ Update A Book     2_(update)        |");
+      printf("\n\n ^ Display Tools      3_(display)      |");
+      printf("\n\n ^ Exit                4_(exit)        |");
+      printf("\n\n---------------------------------------");
+      printf("\n\nPlease enter the number of your choice: ");
+      scanf("%d",&choice);
+
+      break;
+
+           }
+
+
+       case 4:
+           //In the situation where 4 is entered a message is produced and the program is exited.
+        {
+           system("cls");
+           printf("\n                                           Thank you %s for your time:)",username);
+           getch();
+           return 0;
+
+           break;
+        }
+
+       default:
+        printf("That was an invalid entry..... Sorry");
+  }
+ }
+}
+
+
+
+
+getch();
+return 0;
+
+
+
+}
